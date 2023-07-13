@@ -6,7 +6,7 @@ namespace EasyMenu.Api.Admin.Controllers.v1
     [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class disheTypeController
+    public class DisheTypeController
     {
         [HttpPost("")]
         public async Task<IActionResult> Post([FromBody] string request)
@@ -27,7 +27,7 @@ namespace EasyMenu.Api.Admin.Controllers.v1
         }
 
         [HttpDelete("id/{id}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> delete([FromRoute] Guid id)
         {
             return null;
         }
