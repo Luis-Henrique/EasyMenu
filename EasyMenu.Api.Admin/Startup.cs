@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using EasyMenu.Application.Data.SqlServer;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 
@@ -28,6 +29,10 @@ namespace EasyMenu.API.Admin
                 });
             });
             BeforeConfigureServices(services);
+            services.AddApiVersioning();
+
+            services.AddScoped<SqlServerContext>();
+            services.Configure<AppConnectionSettings>(option => Configuration.GetSection("ConnectionStrings").Bind(option));
 
             services.AddSwaggerGen();
    
