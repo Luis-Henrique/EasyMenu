@@ -2,13 +2,34 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EasyMenu.Application.Contracts.Request.Menu;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyMenu.Application.Entities;
 
 [Table("menu")]
-public partial class Menu
+public class MenuEntity
 {
+    public MenuEntity(MenuPostRequest document)
+    {
+        this.Id = Guid.NewGuid();
+        this.Title = document.Title;
+        this.Description = document.Description;
+        this.CreatedDate = DateTime.Now;
+    }
+
+    public MenuEntity(MenuPutRequest document)
+    {
+        this.Title = document.Title;
+        this.Description = document.Description;
+        this.UpdatedDate = DateTime.Now;
+    }
+
+    public MenuEntity()
+    {
+
+    }
+
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
@@ -31,8 +52,8 @@ public partial class Menu
     public DateTime? UpdatedDate { get; set; }
 
     [InverseProperty("Menu")]
-    public virtual ICollection<MenuOption> MenuOption { get; set; } = new List<MenuOption>();
+    public virtual ICollection<MenuOptionEntity> MenuOption { get; set; } = new List<MenuOptionEntity>();
 
     [InverseProperty("Menu")]
-    public virtual ICollection<Restaurant> Restaurant { get; set; } = new List<Restaurant>();
+    public virtual ICollection<RestaurantEntity> Restaurant { get; set; } = new List<RestaurantEntity>();
 }
