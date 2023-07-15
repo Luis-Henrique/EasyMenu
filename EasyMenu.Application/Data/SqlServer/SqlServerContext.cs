@@ -12,19 +12,19 @@ public partial class SqlServerContext : DbContext
     {
     }
 
-    public virtual DbSet<DisheType> DisheType { get; set; }
+    public virtual DbSet<DisheTypeEntity> DisheType { get; set; }
 
-    public virtual DbSet<Dishes> Dishes { get; set; }
+    public virtual DbSet<DishesEntity> Dishes { get; set; }
 
-    public virtual DbSet<Menu> Menu { get; set; }
+    public virtual DbSet<MenuEntity> Menu { get; set; }
 
-    public virtual DbSet<MenuOption> MenuOption { get; set; }
+    public virtual DbSet<MenuOptionEntity> MenuOption { get; set; }
 
-    public virtual DbSet<Restaurant> Restaurant { get; set; }
+    public virtual DbSet<RestaurantEntity> Restaurant { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<DisheType>(entity =>
+        modelBuilder.Entity<DisheTypeEntity>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__disheTyp__3213E83F5A8706B9");
 
@@ -32,7 +32,7 @@ public partial class SqlServerContext : DbContext
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
         });
 
-        modelBuilder.Entity<Dishes>(entity =>
+        modelBuilder.Entity<DishesEntity>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__dishes__3213E83FC9B4C8B4");
 
@@ -46,7 +46,7 @@ public partial class SqlServerContext : DbContext
                 .HasConstraintName("fk_disheTypeId");
         });
 
-        modelBuilder.Entity<Menu>(entity =>
+        modelBuilder.Entity<MenuEntity>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__menu__3213E83F4FF48E17");
 
@@ -54,7 +54,7 @@ public partial class SqlServerContext : DbContext
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
         });
 
-        modelBuilder.Entity<MenuOption>(entity =>
+        modelBuilder.Entity<MenuOptionEntity>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__menuOpti__3213E83F71D20290");
 
@@ -69,7 +69,7 @@ public partial class SqlServerContext : DbContext
                 .HasConstraintName("fk_menuId");
         });
 
-        modelBuilder.Entity<Restaurant>(entity =>
+        modelBuilder.Entity<RestaurantEntity>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__restaura__3213E83FB8BEB33B");
 
