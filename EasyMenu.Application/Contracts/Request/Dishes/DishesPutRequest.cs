@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyMenu.Application.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace EasyMenu.Application.Contracts.Request.Dishes
 
         public decimal Price { get; set; }
 
-        //  public Portion Portion { get; set; } --> Enum
+        public Portion Portion { get; set; }
 
         public bool? Promotion { get; set; }
 

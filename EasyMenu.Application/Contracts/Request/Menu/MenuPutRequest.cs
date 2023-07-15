@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyMenu.Application.Contracts.Request.DishesType
+namespace EasyMenu.Application.Contracts.Request.Menu
 {
-    internal class MenuPutRequest
+    public class MenuPutRequest
     {
         public Guid Id { get; set; }
 
