@@ -13,6 +13,22 @@ USE [easyMenu]
 GO
 
 -- -----------------------------------------------------
+-- Table `easyMenu`.`user`
+-- -----------------------------------------------------
+
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='user' and xtype='U')
+BEGIN
+    CREATE TABLE [user] (
+											  id	      UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
+											  userName	  varchar(50) NOT NULL,
+											  email       varchar(100) NOT NULL,
+											  password    varchar(50) NOT NULL,
+											  createdDate DateTime NOT NULL DEFAULT GETDATE(),
+											  updatedDate Datetime NULL,
+    )
+END
+
+-- -----------------------------------------------------
 -- Table `easyMenu`.`menu`
 -- -----------------------------------------------------
 
