@@ -71,7 +71,7 @@ BEGIN
 											  description    varchar(200) NULL,
 											  price          decimal(10,2) NOT NULL DEFAULT 0,
 											  portion        tinyint NOT NULL DEFAULT 1,
-											  promotion      bit NULL,
+											  promotion      tinyint NULL DEFAULT 1,
 											  promotionPrice decimal(10,2) NULL DEFAULT 0,
 											  disheTypeId	 UNIQUEIDENTIFIER NOT NULL,
 											  createdDate    DateTime NOT NULL DEFAULT GETDATE(),

@@ -17,8 +17,8 @@ public class DishesEntity
         this.Title = dishes.Title;
         this.Description = dishes.Description;
         this.Price = dishes.Price;
-        this.Portion = dishes.Portion;
-        this.Promotion = dishes.Promotion;
+        this.Portion = Convert.ToInt32(dishes.Portion);
+        this.Promotion = Convert.ToInt32(dishes.Promotion);
         this.PromotionPrice = dishes.PromotionPrice;
         this.DisheTypeId = dishes.DisheTypeId;
         this.CreatedDate = DateTime.Now;
@@ -30,8 +30,8 @@ public class DishesEntity
         this.Title = dishes.Title;
         this.Description = dishes.Description;
         this.Price = dishes.Price;
-        this.Portion = dishes.Portion;
-        this.Promotion = dishes.Promotion;
+        this.Portion = Convert.ToInt32(dishes.Portion);
+        this.Promotion = Convert.ToInt32(dishes.Promotion);
         this.PromotionPrice = dishes.PromotionPrice;
         this.DisheTypeId = dishes.DisheTypeId;
         this.UpdatedDate = DateTime.Now;
@@ -62,10 +62,10 @@ public class DishesEntity
     public decimal Price { get; set; }
 
     [Column("portion")]
-    public Portion Portion { get; set; }
+    public int Portion { get; set; }
 
     [Column("promotion")]
-    public Boolean? Promotion { get; set; }
+    public int? Promotion { get; set; }
 
     [Column("promotionPrice", TypeName = "decimal(10, 2)")]
     public decimal? PromotionPrice { get; set; }

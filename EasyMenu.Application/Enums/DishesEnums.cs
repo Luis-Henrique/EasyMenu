@@ -12,4 +12,11 @@ namespace EasyMenu.Application.Enums
         Medio = 2,
         Grande = 3,
     }
+
+    public enum Promotion
+    {
+        ValorNormal = 1,
+        PromocaoX = 2,
+        PromocaoY = 3,
+    }
 }
