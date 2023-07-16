@@ -1,6 +1,15 @@
-﻿using EasyMenu.Application.Data.SqlServer;
+﻿using EasyMenu.Api.Admin.Controllers.v1;
+using EasyMenu.Application.Data.MySql.Repositories;
+using EasyMenu.Application.Data.SqlServer;
+using EasyMenu.Application.Data.SqlServer.Repositories;
+using EasyMenu.Application.Helpers;
+using EasyMenu.Application.Interfaces;
+using EasyMenu.Application.Services;
+using EasyRestaurant.Application.Data.SqlServer.Repositories;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace EasyMenu.API.Admin
@@ -20,6 +29,9 @@ namespace EasyMenu.API.Admin
                .AddJsonFile("appsettings.json")
                .Build();
 
+            services.AddAuthentication("BasicAuthentication")
+                      .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsPolicy,
@@ -28,14 +40,38 @@ namespace EasyMenu.API.Admin
                     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
             });
+
             BeforeConfigureServices(services);
+
             services.AddApiVersioning();
 
-            services.AddScoped<SqlServerContext>();
-            services.Configure<AppConnectionSettings>(option => Configuration.GetSection("ConnectionStrings").Bind(option));
+            services.AddDbContext<SqlServerContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));       
+            });
 
-            services.AddSwaggerGen();
-   
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "EasyMenu.API", Version = "v1" });
+            });
+
+            services.AddScoped<UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<DishesService>();
+            services.AddScoped<IDishesRepository, DishesRepository>();
+
+            services.AddScoped<MenuService>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
+
+            services.AddScoped<MenuOptionService>();
+            services.AddScoped<IMenuOptionRepository, MenuOptionRepository>();
+
+            services.AddScoped<RestaurantService>();
+            services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+
+            services.AddScoped<DisheTypeService>();
+            services.AddScoped<IDisheTypeRepository, DisheTypeRepository>();
 
             services.AddMvc(options =>
             {
@@ -54,7 +90,7 @@ namespace EasyMenu.API.Admin
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EasyMenu.API v1"));
 
             app.UseCors(CorsPolicy);
 
