@@ -1,5 +1,7 @@
 ﻿using EasyMenu.Application.Contracts.Response;
 using EasyMenu.Application.Entities;
+using EasyMenu.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EasyMenu.Application.Data.SqlServer.Repositories
 {
-    public class DishesRepository
+    public class DishesRepository : IDishesRepository
     {
         private readonly SqlServerContext _context;
 
@@ -19,27 +21,53 @@ namespace EasyMenu.Application.Data.SqlServer.Repositories
 
         public async Task<DefaultResponse> CreateAsync(DishesEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Dishes.Add(entity);
+            var result = await this.SaveAllAsync();
+
+            if (result == true)
+                return new DefaultResponse(entity.Id.ToString(), "Prato criado com sucesso", false);
+
+            return new DefaultResponse("", "Erro ao tentar criar um prato", true);
         }
 
         public async Task<DefaultResponse> UpdateAsync(DishesEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+            var result = await this.SaveAllAsync();
+
+            if (result == true)
+                return new DefaultResponse(entity.Id.ToString(), "Prato alterado com sucesso", false);
+
+            return new DefaultResponse(entity.Id.ToString(), "Erro ao tentar alterar o prato", true);
         }
 
         public async Task<DefaultResponse> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            DishesEntity entity = new DishesEntity() { Id = id };
+            _context.Dishes.Attach(entity);
+            _context.Dishes.Remove(entity);
+            var result = await this.SaveAllAsync();
+
+            if (result == true)
+                return new DefaultResponse(entity.Id.ToString(), "Prato excluido com sucesso", false);
+
+            return new DefaultResponse(entity.Id.ToString(), "Erro ao tentar excluir o tipo de Prato", true);
         }
 
         public async Task<DishesEntity> GetByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
+        {  
+            var entity = await _context.Dishes.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return entity;
         }
 
         public async Task<string> GetByFilterAsync(string filter)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using EasyMenu.Application.Contracts.Response;
 using EasyMenu.Application.Entities;
+using EasyMenu.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EasyMenu.Application.Data.SqlServer.Repositories
 {
-    public class MenuRepository
+    public class MenuRepository : IMenuRepository
     {
         private readonly SqlServerContext _context;
 
@@ -19,27 +21,52 @@ namespace EasyMenu.Application.Data.SqlServer.Repositories
 
         public async Task<DefaultResponse> CreateAsync(MenuEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Menu.Add(entity);
+            var result = await this.SaveAllAsync();
+
+            if (result == true)
+                return new DefaultResponse(entity.Id.ToString(), "Cardápio criado com sucesso", false);
+
+            return new DefaultResponse("", "Erro ao tentar criar um cardápio ", true);
         }
 
         public async Task<DefaultResponse> UpdateAsync(MenuEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+            var result = await this.SaveAllAsync();
+
+            if (result == true)
+                return new DefaultResponse(entity.Id.ToString(), "Cardápio alterado com sucesso", false);
+
+            return new DefaultResponse(entity.Id.ToString(), "Erro ao tentar alterar o cardápio", true);
         }
 
         public async Task<DefaultResponse> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            MenuEntity entity = new MenuEntity() { Id = id };
+            _context.Menu.Attach(entity);
+            _context.Menu.Remove(entity);
+            var result = await this.SaveAllAsync();
+
+            if (result == true)
+                return new DefaultResponse(entity.Id.ToString(), "Cardápio excluido com sucesso", false);
+
+            return new DefaultResponse(entity.Id.ToString(), "Erro ao tentar excluir o cardápio", true);
         }
 
         public async Task<MenuEntity> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.Menu.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<string> GetByFilterAsync(string filter)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
