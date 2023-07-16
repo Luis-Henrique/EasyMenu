@@ -12,6 +12,6 @@ namespace EasyMenu.Application.Contracts.Request.Restaurant
 
         public string Address { get; set; }
 
-        public string MenuId { get; set; }
+        public Guid MenuId { get; set; }
     }
 }

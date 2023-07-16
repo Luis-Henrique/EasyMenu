@@ -23,6 +23,9 @@ namespace EasyMenu.Application.Contracts.Request.Dishes
 
         public decimal? PromotionPrice { get; set; }
 
-        public string DisheTypeId { get; set; }
+        public Guid DisheTypeId { get; set; }
+
+        public string CreatedDate { get; set; }
+
     }
 }

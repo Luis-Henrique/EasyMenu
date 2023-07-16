@@ -8,8 +8,8 @@ namespace EasyMenu.Application.Contracts.Request.MenuOption
 {
     public class MenuOptionPostRequest
     {
-        public string MenuId { get; set; }
+        public Guid MenuId { get; set; }
 
-        public string DisheId { get; set; }
+        public Guid DisheId { get; set; }
     }
 }
