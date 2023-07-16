@@ -11,29 +11,31 @@ namespace EasyMenu.Application.Entities;
 [Table("dishes")]
 public class DishesEntity
 {
-    public DishesEntity(DishesPostRequest document)
+    public DishesEntity(DishesPostRequest dishes)
     {
         this.Id = Guid.NewGuid();
-        this.Title = document.Title;
-        this.Description = document.Description;
-        this.Price = document.Price;
-        this.Portion = document.Portion;
-        this.Promotion = document.Promotion;
-        this.PromotionPrice = document.PromotionPrice;
-        this.DisheTypeId = document.DisheTypeId;
+        this.Title = dishes.Title;
+        this.Description = dishes.Description;
+        this.Price = dishes.Price;
+        this.Portion = dishes.Portion;
+        this.Promotion = dishes.Promotion;
+        this.PromotionPrice = dishes.PromotionPrice;
+        this.DisheTypeId = dishes.DisheTypeId;
         this.CreatedDate = DateTime.Now;
     }
 
-    public DishesEntity(DishesPutRequest document)
+    public DishesEntity(DishesPutRequest dishes)
     {
-        this.Title = document.Title;
-        this.Description = document.Description;
-        this.Price = document.Price;
-        this.Portion = document.Portion;
-        this.Promotion = document.Promotion;
-        this.PromotionPrice = document.PromotionPrice;
-        this.DisheTypeId = document.DisheTypeId;
+        this.Id = dishes.Id;
+        this.Title = dishes.Title;
+        this.Description = dishes.Description;
+        this.Price = dishes.Price;
+        this.Portion = dishes.Portion;
+        this.Promotion = dishes.Promotion;
+        this.PromotionPrice = dishes.PromotionPrice;
+        this.DisheTypeId = dishes.DisheTypeId;
         this.UpdatedDate = DateTime.Now;
+        this.CreatedDate = DateTime.ParseExact(dishes.CreatedDate, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
     }
 
     public DishesEntity()
@@ -69,18 +71,11 @@ public class DishesEntity
     public decimal? PromotionPrice { get; set; }
 
     [Column("disheTypeId")]
-    public string DisheTypeId { get; set; }
+    public Guid DisheTypeId { get; set; }
 
     [Column("createdDate", TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     [Column("updatedDate", TypeName = "datetime")]
     public DateTime? UpdatedDate { get; set; }
-
-    [ForeignKey("DisheTypeId")]
-    [InverseProperty("Dishes")]
-    public virtual DisheTypeEntity DisheType { get; set; }
-
-    [InverseProperty("Dishe")]
-    public virtual ICollection<MenuOptionEntity> MenuOption { get; set; } = new List<MenuOptionEntity>();
 }

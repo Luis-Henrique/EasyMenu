@@ -10,21 +10,23 @@ namespace EasyMenu.Application.Entities;
 [Table("restaurant")]
 public partial class RestaurantEntity
 {
-    public RestaurantEntity(RestaurantPostRequest document)
+    public RestaurantEntity(RestaurantPostRequest restaurant)
     {
         this.Id = Guid.NewGuid();
-        this.Name = document.Name;
-        this.Address = document.Address;
-        this.MenuId = document.MenuId;
+        this.Name = restaurant.Name;
+        this.Address = restaurant.Address;
+        this.MenuId = restaurant.MenuId;
         this.CreatedDate = DateTime.Now;
     }
 
-    public RestaurantEntity(RestaurantPutRequest document)
+    public RestaurantEntity(RestaurantPutRequest restaurant)
     {
-        this.Name = document.Name;
-        this.Address = document.Address;
-        this.MenuId = document.MenuId;
+        this.Id = restaurant.Id;
+        this.Name = restaurant.Name;
+        this.Address = restaurant.Address;
+        this.MenuId = restaurant.MenuId;
         this.UpdatedDate = DateTime.Now;
+        this.CreatedDate = DateTime.ParseExact(restaurant.CreatedDate, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
     }
 
     public RestaurantEntity()
@@ -48,15 +50,11 @@ public partial class RestaurantEntity
     public string Address { get; set; }
 
     [Column("menuId")]
-    public string MenuId { get; set; }
+    public Guid MenuId { get; set; }
 
     [Column("createdDate", TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
     [Column("updatedDate", TypeName = "datetime")]
     public DateTime? UpdatedDate { get; set; }
-
-    [ForeignKey("MenuId")]
-    [InverseProperty("Restaurant")]
-    public virtual MenuEntity Menu { get; set; }
 }

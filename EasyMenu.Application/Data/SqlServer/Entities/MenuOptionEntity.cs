@@ -10,17 +10,18 @@ namespace EasyMenu.Application.Entities;
 [Table("menuOption")]
 public class MenuOptionEntity
 {
-    public MenuOptionEntity(MenuOptionPostRequest document)
+    public MenuOptionEntity(MenuOptionPostRequest menuOption)
     {
         this.Id = Guid.NewGuid();
-        this.DisheId = document.DisheId;
-        this.MenuId = document.MenuId;
+        this.DisheId = menuOption.DisheId;
+        this.MenuId = menuOption.MenuId;
     }
 
-    public MenuOptionEntity(MenuOptionPutRequest document)
+    public MenuOptionEntity(MenuOptionPutRequest menuOption)
     {
-        this.DisheId = document.DisheId;
-        this.MenuId = document.MenuId;
+        this.Id = menuOption.Id;
+        this.DisheId = menuOption.DisheId;
+        this.MenuId = menuOption.MenuId;
     }
 
     public MenuOptionEntity()
@@ -33,16 +34,8 @@ public class MenuOptionEntity
     public Guid Id { get; set; }
 
     [Column("menuId")]
-    public string MenuId { get; set; }
+    public Guid MenuId { get; set; }
 
     [Column("disheId")]
-    public string DisheId { get; set; }
-
-    [ForeignKey("DisheId")]
-    [InverseProperty("MenuOption")]
-    public virtual DishesEntity Dishe { get; set; }
-
-    [ForeignKey("MenuId")]
-    [InverseProperty("MenuOption")]
-    public virtual MenuEntity Menu { get; set; }
+    public Guid DisheId { get; set; }
 }

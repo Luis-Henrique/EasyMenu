@@ -10,19 +10,21 @@ namespace EasyMenu.Application.Entities;
 [Table("menu")]
 public class MenuEntity
 {
-    public MenuEntity(MenuPostRequest document)
+    public MenuEntity(MenuPostRequest menu)
     {
         this.Id = Guid.NewGuid();
-        this.Title = document.Title;
-        this.Description = document.Description;
+        this.Title = menu.Title;
+        this.Description = menu.Description;
         this.CreatedDate = DateTime.Now;
     }
 
-    public MenuEntity(MenuPutRequest document)
+    public MenuEntity(MenuPutRequest menu)
     {
-        this.Title = document.Title;
-        this.Description = document.Description;
+        this.Id = menu.Id;
+        this.Title = menu.Title;
+        this.Description = menu.Description;
         this.UpdatedDate = DateTime.Now;
+        this.CreatedDate = DateTime.ParseExact(menu.CreatedDate, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
     }
 
     public MenuEntity()
@@ -50,10 +52,4 @@ public class MenuEntity
 
     [Column("updatedDate", TypeName = "datetime")]
     public DateTime? UpdatedDate { get; set; }
-
-    [InverseProperty("Menu")]
-    public virtual ICollection<MenuOptionEntity> MenuOption { get; set; } = new List<MenuOptionEntity>();
-
-    [InverseProperty("Menu")]
-    public virtual ICollection<RestaurantEntity> Restaurant { get; set; } = new List<RestaurantEntity>();
 }

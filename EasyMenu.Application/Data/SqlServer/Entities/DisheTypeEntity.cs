@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using EasyMenu.Application.Contracts.Request.Dishes;
 using EasyMenu.Application.Contracts.Request.DishesType;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,19 +10,21 @@ namespace EasyMenu.Application.Entities;
 [Table("disheType")]
 public class DisheTypeEntity
 {
-    public DisheTypeEntity(DisheTypePostRequest document)
+    public DisheTypeEntity(DisheTypePostRequest disheType)
     {
         this.Id = Guid.NewGuid();
-        this.Title = document.Title;
-        this.Description = document.Description;
+        this.Title = disheType.Title;
+        this.Description = disheType.Description;
         this.CreatedDate = DateTime.Now;
     }
 
-    public DisheTypeEntity(DisheTypePutRequest document)
+    public DisheTypeEntity(DisheTypePutRequest disheType)
     {
-        this.Title = document.Title;
-        this.Description = document.Description;
+        this.Id = disheType.Id;
+        this.Title = disheType.Title;
+        this.Description = disheType.Description;
         this.UpdatedDate = DateTime.Now;
+        this.CreatedDate = DateTime.ParseExact(disheType.CreatedDate, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
     }
 
     public DisheTypeEntity()
@@ -51,7 +52,4 @@ public class DisheTypeEntity
 
     [Column("updatedDate", TypeName = "datetime")]
     public DateTime? UpdatedDate { get; set; }
-
-    [InverseProperty("DisheType")]
-    public virtual ICollection<DishesEntity> Dishes { get; set; } = new List<DishesEntity>();
 }

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using EasyMenu.Application.Data.MySql.Entities;
 using EasyMenu.Application.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyMenu.Application.Data.SqlServer;
-
 public partial class SqlServerContext : DbContext
 {
     public SqlServerContext(DbContextOptions<SqlServerContext> options)
-        : base(options)
+       : base(options)
     {
     }
 
@@ -22,8 +22,17 @@ public partial class SqlServerContext : DbContext
 
     public virtual DbSet<RestaurantEntity> Restaurant { get; set; }
 
+    public virtual DbSet<UserEntity> User { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<UserEntity>(entity => {
+            entity.HasKey(e => e.Id).HasName("PK__user__3213E83F5E5009F4");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+        });
+
         modelBuilder.Entity<DisheTypeEntity>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__disheTyp__3213E83F5A8706B9");
@@ -40,11 +49,7 @@ public partial class SqlServerContext : DbContext
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Portion).HasDefaultValueSql("((1))");
             entity.Property(e => e.PromotionPrice).HasDefaultValueSql("((0))");
-
-            entity.HasOne(d => d.DisheType).WithMany(p => p.Dishes)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_disheTypeId");
-        });
+            });
 
         modelBuilder.Entity<MenuEntity>(entity =>
         {
@@ -59,14 +64,6 @@ public partial class SqlServerContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__menuOpti__3213E83F71D20290");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-            entity.HasOne(d => d.Dishe).WithMany(p => p.MenuOption)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_disheId");
-
-            entity.HasOne(d => d.Menu).WithMany(p => p.MenuOption)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_menuId");
         });
 
         modelBuilder.Entity<RestaurantEntity>(entity =>
@@ -75,10 +72,6 @@ public partial class SqlServerContext : DbContext
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
-
-            entity.HasOne(d => d.Menu).WithMany(p => p.Restaurant)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_menuId_restaurant");
         });
 
         OnModelCreatingPartial(modelBuilder);
