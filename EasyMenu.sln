@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyMenu.Api.Admin", "EasyMenu\EasyMenu.Api.Admin.csproj", "{313ADBA6-D54D-4765-985F-72EE6456B4EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMenu.Application", "EasyMenu.Application\EasyMenu.Application.csproj", "{B88F0189-0E0C-4339-9BB4-F520F607F160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyMenu.Application", "EasyMenu.Application\EasyMenu.Application.csproj", "{B88F0189-0E0C-4339-9BB4-F520F607F160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMenu.Tests", "EasyMenu.Tests\EasyMenu.Tests.csproj", "{C4C53666-3EA2-4179-A4A2-AF5A6BDEB66E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B88F0189-0E0C-4339-9BB4-F520F607F160} = {B88F0189-0E0C-4339-9BB4-F520F607F160}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyMenu.Tests", "EasyMenu.Tests\EasyMenu.Tests.csproj", "{C4C53666-3EA2-4179-A4A2-AF5A6BDEB66E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMenu.Api.Admin", "EasyMenu.Api.Admin\EasyMenu.Api.Admin.csproj", "{91463D01-96BA-4680-AB3E-63768A516445}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{56F37A0F-D2F4-4808-B58A-889CD82171CA}"
+	ProjectSection(SolutionItems) = preProject
+		createDatabase.sql = createDatabase.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{313ADBA6-D54D-4765-985F-72EE6456B4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{313ADBA6-D54D-4765-985F-72EE6456B4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{313ADBA6-D54D-4765-985F-72EE6456B4EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{313ADBA6-D54D-4765-985F-72EE6456B4EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B88F0189-0E0C-4339-9BB4-F520F607F160}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B88F0189-0E0C-4339-9BB4-F520F607F160}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B88F0189-0E0C-4339-9BB4-F520F607F160}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +31,10 @@ Global
 		{C4C53666-3EA2-4179-A4A2-AF5A6BDEB66E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4C53666-3EA2-4179-A4A2-AF5A6BDEB66E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4C53666-3EA2-4179-A4A2-AF5A6BDEB66E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91463D01-96BA-4680-AB3E-63768A516445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91463D01-96BA-4680-AB3E-63768A516445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91463D01-96BA-4680-AB3E-63768A516445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91463D01-96BA-4680-AB3E-63768A516445}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
