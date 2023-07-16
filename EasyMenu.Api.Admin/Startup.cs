@@ -1,4 +1,5 @@
-﻿using EasyMenu.Api.Admin.Controllers.v1;
+﻿using Azure;
+using EasyMenu.Api.Admin.Controllers.v1;
 using EasyMenu.Application.Data.MySql.Repositories;
 using EasyMenu.Application.Data.SqlServer;
 using EasyMenu.Application.Data.SqlServer.Repositories;
@@ -9,8 +10,12 @@ using EasyRestaurant.Application.Data.SqlServer.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Globalization;
+using System.Reflection.Metadata;
 
 namespace EasyMenu.API.Admin
 {

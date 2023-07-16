@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMenu.Application", "EasyMenu.Application\EasyMenu.Application.csproj", "{B88F0189-0E0C-4339-9BB4-F520F607F160}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMenu.Tests", "EasyMenu.Tests\EasyMenu.Tests.csproj", "{C4C53666-3EA2-4179-A4A2-AF5A6BDEB66E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B88F0189-0E0C-4339-9BB4-F520F607F160} = {B88F0189-0E0C-4339-9BB4-F520F607F160}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMenu.Api.Admin", "EasyMenu.Api.Admin\EasyMenu.Api.Admin.csproj", "{91463D01-96BA-4680-AB3E-63768A516445}"
 EndProject

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EasyMenu.Api.Admin.Controllers.v1
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DishesController
