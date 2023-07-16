@@ -19,7 +19,7 @@ namespace EasyMenu.Application.Contracts.Request.Dishes
 
         public Portion Portion { get; set; }
 
-        public bool? Promotion { get; set; }
+        public Boolean? Promotion { get; set; }
 
         public decimal? PromotionPrice { get; set; }
 

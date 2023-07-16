@@ -56,8 +56,7 @@ namespace EasyMenu.Application.Data.SqlServer.Repositories
 
         public async Task<DishesEntity> GetByIdAsync(Guid id)
         {  
-            var entity = await _context.Dishes.Where(x => x.Id == id).FirstOrDefaultAsync();
-            return entity;
+           return await _context.Dishes.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<string> GetByFilterAsync(string filter)

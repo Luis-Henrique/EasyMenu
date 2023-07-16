@@ -56,22 +56,22 @@ namespace EasyMenu.API.Admin
             });
 
             services.AddScoped<UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<UserRepository>();
 
             services.AddScoped<DishesService>();
-            services.AddScoped<IDishesRepository, DishesRepository>();
+            services.AddScoped<DishesRepository>();
 
             services.AddScoped<MenuService>();
-            services.AddScoped<IMenuRepository, MenuRepository>();
+            services.AddScoped<MenuRepository>();
 
             services.AddScoped<MenuOptionService>();
-            services.AddScoped<IMenuOptionRepository, MenuOptionRepository>();
+            services.AddScoped<MenuOptionRepository>();
 
             services.AddScoped<RestaurantService>();
-            services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+            services.AddScoped<RestaurantRepository>();
 
             services.AddScoped<DisheTypeService>();
-            services.AddScoped<IDisheTypeRepository, DisheTypeRepository>();
+            services.AddScoped<DisheTypeRepository>();
 
             services.AddMvc(options =>
             {

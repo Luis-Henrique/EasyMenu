@@ -65,7 +65,7 @@ public class DishesEntity
     public Portion Portion { get; set; }
 
     [Column("promotion")]
-    public bool? Promotion { get; set; }
+    public Boolean? Promotion { get; set; }
 
     [Column("promotionPrice", TypeName = "decimal(10, 2)")]
     public decimal? PromotionPrice { get; set; }
