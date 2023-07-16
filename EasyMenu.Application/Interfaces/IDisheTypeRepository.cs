@@ -19,7 +19,7 @@ namespace EasyMenu.Application.Interfaces
 
         Task<DisheTypeEntity> GetByIdAsync(Guid id);
 
-        Task<string> GetByFilterAsync(string filter);
+        Task<IEnumerable<DisheTypeEntity>> GetAllAsync();
 
         Task<bool> SaveAllAsync();
     }

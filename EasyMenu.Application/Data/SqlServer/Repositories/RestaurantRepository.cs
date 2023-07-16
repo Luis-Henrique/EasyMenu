@@ -55,9 +55,9 @@ namespace EasyRestaurant.Application.Data.SqlServer.Repositories
             return await _context.Restaurant.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<string> GetByFilterAsync(string filter)
+        public async Task<IEnumerable<RestaurantEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Restaurant.ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()

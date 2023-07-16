@@ -46,10 +46,11 @@ namespace EasyMenu.Api.Admin.Controllers.v1
             return Utils.Convert(response);
         }
 
-        [HttpGet("getbyfilter")]
-        public async Task<IActionResult> GetByfilter([FromQuery] string request)
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll()
         {
-            throw new NotImplementedException();
+            var response = await _menuOptionService.GetAllAsync();
+            return Utils.Convert(response);
         }
     }
 }

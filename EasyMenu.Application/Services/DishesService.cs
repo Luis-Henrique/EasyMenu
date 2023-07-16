@@ -79,9 +79,9 @@ namespace EasyMenu.Application.Services
             return Utils.SuccessData(entity);
         }
 
-        public async Task<ResultData> GetByFilterAsync(string filter)
+        public async Task<ResultData> GetAllAsync()
         {
-            return Utils.SuccessData(await _dishesRepository.GetByFilterAsync(filter));
+            return Utils.SuccessData(await _dishesRepository.GetAllAsync());
         }
     }
 }

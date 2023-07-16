@@ -60,9 +60,9 @@ namespace EasyMenu.Application.Data.SqlServer.Repositories
             return await _context.DisheType.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<string> GetByFilterAsync(string filter)
+        public async Task<IEnumerable<DisheTypeEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.DisheType.ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()

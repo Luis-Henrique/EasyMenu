@@ -18,7 +18,7 @@ namespace EasyMenu.Application.Interfaces
 
         Task<RestaurantEntity> GetByIdAsync(Guid id);
 
-        Task<string> GetByFilterAsync(string filter);
+        Task<IEnumerable<RestaurantEntity>> GetAllAsync();
 
         Task<bool> SaveAllAsync();
     }

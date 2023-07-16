@@ -59,9 +59,9 @@ namespace EasyMenu.Application.Data.SqlServer.Repositories
             return await _context.MenuOption.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<string> GetByFilterAsync(string filter)
+        public async Task<IEnumerable<MenuOptionEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.MenuOption.ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
