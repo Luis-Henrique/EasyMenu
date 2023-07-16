@@ -3,6 +3,7 @@ using EasyMenu.Application.Contracts.Request.DishesType;
 using EasyMenu.Application.Data.SqlServer.Repositories;
 using EasyMenu.Application.Entities;
 using EasyMenu.Application.Helpers;
+using EasyMenu.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace EasyMenu.Application.Services
 {
     public class DisheTypeService
     {
-        private readonly DisheTypeRepository _disheTypeRepository;
+        private readonly IDisheTypeRepository _disheTypeRepository;
 
-        public DisheTypeService(DisheTypeRepository dishesTypeRepository)
+        public DisheTypeService(IDisheTypeRepository dishesTypeRepository)
         {
             this._disheTypeRepository = dishesTypeRepository;
         }

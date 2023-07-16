@@ -2,6 +2,7 @@
 using EasyMenu.Application.Data.SqlServer.Repositories;
 using EasyMenu.Application.Entities;
 using EasyMenu.Application.Helpers;
+using EasyMenu.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace EasyMenu.Application.Services
 {
     public class RestaurantService
     {
-        private readonly RestaurantRepository _restaurantRepository;
+        private readonly IRestaurantRepository _restaurantRepository;
 
-        public RestaurantService(RestaurantRepository restaurantRepository)
+        public RestaurantService(IRestaurantRepository restaurantRepository)
         {
             this._restaurantRepository = restaurantRepository;
         }
