@@ -17,19 +17,19 @@ namespace EasyMenu.API.Admin.Controllers.v1
             this._userService = service;
         }
 
-        /*[HttpPost("create-account")]
+        [HttpPost("create-account")]
         public async Task<IActionResult> Post([FromBody] UserPostRequest request)
         {
             var response = await _userService.PostAsync(request);
             return Utils.Convert(response);
-        }*/
+        }
 
-        [HttpPut("recovery-account")]
+        /*[HttpPut("recovery-account")]
         public async Task<IActionResult> Put([FromBody] UserPutRequest request)
         {
             var response = await _userService.PutAsync(request);
             return Utils.Convert(response);
-        }
+        }*/
 
         [HttpPost("login")]
         public async Task<IActionResult> PostLogin([FromBody] UserPostLoginRequest request)
