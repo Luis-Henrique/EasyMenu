@@ -1,348 +1,108 @@
-# REST API example application
+# EasyMenu
 
-This is a bare-bones example of a Sinatra application providing a REST
-API to a DataMapper-backed model.
+APIRest para gestão de cardápios digitais
 
-The entire application is contained within the `app.rb` file.
 
-`config.ru` is a minimal Rack configuration for unicorn.
+## 🚀 Começando
 
-`run-tests.sh` runs a simplistic test and generates the API
-documentation below.
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
-It uses `run-curl-tests.rb` which runs each command defined in
-`commands.yml`.
 
-## Install
+## 📋 Pré-requisitos
 
-    bundle install
 
-## Run the app
+### 🛠️ Ferramentas
 
-    unicorn -p 7000
+```
+Visual Studio 2022
+```
+```
+Git
+```
+```
+SQL server management studio
+```
 
-## Run the tests
+### 💻 Tecnologias
 
-    ./run-tests.sh
+```
+.Net 7
+```
+```
+C#
+```
+```
+SQL Server
+```
+```
+Entity Framework
+```
 
-# REST API
+## 🔧 Instalação
 
-The REST API to the example app is described below.
+### 😎 API
 
-## Get list of Things
+Clone esse repositório em sua maquina local usando git bash:
 
-### Request
+```
+git clone https://github.com/Luis-Henrique/EasyMenu
+```
 
-`GET /thing/`
+Abra a solução `EasyMenu.sln` usando Visual Studio 2022
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+Defina `EasyMenu.Api.Admin` como projeto de inicialização
 
-### Response
+![2023-07-16-22-44-49](https://github.com/Luis-Henrique/EasyMenu/assets/101938473/7a05bab7-0c0d-4580-bfd4-d45c913e3823)
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
+Inicialize o projeto:
 
-    []
+![2023-07-16-22-35-33](https://github.com/Luis-Henrique/EasyMenu/assets/101938473/41c4b8d7-6de8-40c5-b2ce-87fce12b5e2c)
 
-## Create a new Thing
+### 🎲 DataBase
 
-### Request
+Para criar o banco utilize o arquivo `createDatabase.sql` salvo na pasta items
 
-`POST /thing/`
+Configure sua string de conexação no arquivo `appsettings.json`
 
-    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
+### ✨ Requisições 
 
-### Response
+#### Requisições via swagger
 
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/1
-    Content-Length: 36
+Na página do Swagger selecione a requisição desejada
 
-    {"id":1,"name":"Foo","status":"new"}
+Clique em tryOut se necessário passe os valores desejados via arquivo `json`
 
-## Get a specific Thing
+Depois clique em execute
 
-### Request
+Veja os detalhes da resposta na parte inferior
 
-`GET /thing/id`
+Demonstração:
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
+![2023-07-16-22-49-16](https://github.com/Luis-Henrique/EasyMenu/assets/101938473/79116f0f-f91e-41e9-b509-cbb24c8684b8)
 
-### Response
+#### Requisições via postman
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 36
+As requisições pelo postman deverão ser feitas via `body` utilizando formato `json`
 
-    {"id":1,"name":"Foo","status":"new"}
+Demonstração:
 
-## Get a non-existent Thing
+![2023-07-16-22-54-02](https://github.com/Luis-Henrique/EasyMenu/assets/101938473/1bf32b34-4b04-42ca-aa21-280bf4932200)
 
-### Request
+> **Warning**
+> Caso o `Authorize` esteja ativado na controller, será necessário realizar a autorização do usúario e passar o token do login no header da requisição
 
-`GET /thing/id`
+`Authorize`
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/9999
+![image](https://github.com/Luis-Henrique/EasyMenu/assets/101938473/45c06c5f-a512-4c5e-862c-5121a2ff435f)
 
-### Response
+`Basic Auth`
 
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
+![image](https://github.com/Luis-Henrique/EasyMenu/assets/101938473/8a2839a5-2c3c-490a-a354-b62801d4fb05)
 
-    {"status":404,"reason":"Not found"}
+`Token`
 
-## Create another new Thing
+![image](https://github.com/Luis-Henrique/EasyMenu/assets/101938473/44db46f8-fa55-40aa-8347-271b746ec9a6)
 
-### Request
+### ⚙️ Executando os testes
 
-`POST /thing/`
-
-    curl -i -H 'Accept: application/json' -d 'name=Bar&junk=rubbish' http://localhost:7000/thing
-
-### Response
-
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/2
-    Content-Length: 35
-
-    {"id":2,"name":"Bar","status":null}
-
-## Get list of Things again
-
-### Request
-
-`GET /thing/`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 74
-
-    [{"id":1,"name":"Foo","status":"new"},{"id":2,"name":"Bar","status":null}]
-
-## Change a Thing's state
-
-### Request
-
-`PUT /thing/:id/status/changed`
-
-    curl -i -H 'Accept: application/json' -X PUT http://localhost:7000/thing/1/status/changed
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Get changed Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Change a Thing
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'name=Foo&status=changed2' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed2"}
-
-## Attempt to change a Thing using partial params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'status=changed3' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed3"}
-
-## Attempt to change a Thing using invalid params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'id=99&status=changed4' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed4"}
-
-## Change a Thing using the _method hack
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Baz&_method=PUT' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Baz","status":"changed4"}
-
-## Change a Thing using the _method hack in the url
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Qux' http://localhost:7000/thing/1?_method=PUT
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: text/html;charset=utf-8
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 204 No Content
-    Connection: close
-
-
-## Try to delete same Thing again
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Get deleted Thing
-
-### Request
-
-`GET /thing/1`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing using the _method hack
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X POST -d'_method=DELETE' http://localhost:7000/thing/2/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 204 No Content
-    Connection: close
+*Em implementação*
